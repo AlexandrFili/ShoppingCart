@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid bg-primary p-5 mt-5">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<form>
+						<div class="input-group">
+							<input type="text" class="form-control" name="ch">
+							<button class="btn btn-light text-dark ms-3 col-md-2">
+								<i class="fa-solid fa-magnifying-glass"></i> Поиск
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mt-1">
+			<div class="row">
+
+				<div class="col-md-2">
+
+					<div class="card shadow p-0 mb-5 bg-body-tertiary rounded">
+						<div class="card-body">
+							<div class="list-group">
+								<a href="#"
+									class="list-group-item list-group-item-action active"
+									aria-current="true"> Категории </a> <a href="#"
+									class="list-group-item list-group-item-action">Электроника</a>
+								<a href="#" class="list-group-item list-group-item-action">Смартфоны</a>
+								<a href="#" class="list-group-item list-group-item-action">Одежда</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<div class="card shadow p-0 mb-5 bg-body-tertiary rounded">
+						<div class="card-body">
+							<p class="fs-3 text-center">Товары</p>
+							<div class="row">
+							
+							
+								<div class="col-md-3">
+									<div class="card shadow p-0 mb-5 bg-body-tertiary rounded">
+										<div class="card-body">
+											<img alt="" src="/img/product_img/laptop.jpg" width="100%"
+												height="100%">
+											<p class="fs-5 text-center">Ноутбук</p>
+											<div class="row text-center">
+												<p class="fs-6 fw-bold">
+													50 000<i class="fa-solid fa-ruble-sign"></i> <span
+														class="fs-6 text-success">скидка 20% </span>
+												</p>
+												<a href="/product" class="btn btn-primary col-md-6 offset-md-3">Просмотр</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- TODO:  удалить после добавления бекенда-->
+
+								<div class="col-md-3">
+									<div class="card shadow p-0 mb-5 bg-body-tertiary rounded">
+										<div class="card-body">
+											<img alt="" src="/img/product_img/laptop.jpg" width="100%"
+												height="100%">
+											<p class="fs-5 text-center">Ноутбук</p>
+											<div class="row text-center">
+												<p class="fs-6 fw-bold">
+													50 000<i class="fa-solid fa-ruble-sign"></i> <span
+														class="fs-6 text-success">скидка 20% </span>
+												</p>
+												<a class="btn btn-primary col-md-6 offset-md-3">Просмотр</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="card shadow p-0 mb-5 bg-body-tertiary rounded">
+										<div class="card-body">
+											<img alt="" src="/img/product_img/laptop.jpg" width="100%"
+												height="100%">
+											<p class="fs-5 text-center">Ноутбук</p>
+											<div class="row text-center">
+												<p class="fs-6 fw-bold">
+													50 000<i class="fa-solid fa-ruble-sign"></i> <span
+														class="fs-6 text-success">скидка 20% </span>
+												</p>
+												<a class="btn btn-primary col-md-6 offset-md-3">Просмотр</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-3">
+									<div class="card shadow p-0 mb-5 bg-body-tertiary rounded">
+										<div class="card-body">
+											<img alt="" src="/img/product_img/laptop.jpg" width="100%"
+												height="100%">
+											<p class="fs-5 text-center">Ноутбук</p>
+											<div class="row text-center">
+												<p class="fs-6 fw-bold">
+													50 000<i class="fa-solid fa-ruble-sign"></i> <span
+														class="fs-6 text-success">скидка 20% </span>
+												</p>
+												<a class="btn btn-primary col-md-6 offset-md-3">Просмотр</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Конец -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
