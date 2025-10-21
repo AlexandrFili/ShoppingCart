@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-5">
+			<div class="row">
+
+				<div class="col-md-5 p-2 d-flex align-items-center me-auto">
+					<img alt="" src="img/ecom.png" width="100%" height="400px">
+				</div>
+				<div class="col-md-7 p-2">
+					<div class="card shadow">
+						<div class="card-header">
+							<p class="fs-4 text-center">Регистрация</p>
+						</div>
+						<div class="card-body">
+							<form>
+
+								<div class="row">
+									<div class="col">
+										<label class="form-label">ФИО</label> <input
+											class="form-control" name="name" type="text">
+									</div>
+
+									<div class="col">
+										<label class="form-label">Номер телефона</label> <input
+											class="form-control" name="mobileNumber" type="number">
+									</div>
+								</div>
+								
+								<div class="mb-3">
+									<label class="form-label">Email</label> <input
+										class="form-control" name="email" type="email">
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<label class="form-label">Адрес проживания</label> <input
+											class="form-control" name="address" type="text">
+									</div>
+
+									<div class="col">
+										<label class="form-label">Город</label> <input
+											class="form-control" name="city" type="text">
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col">
+										<label class="form-label">Регион</label> <input
+											class="form-control" name="region" type="text">
+									</div>
+
+									<div class="col">
+										<label class="form-label">Почтовый индекс</label> <input
+											class="form-control" name="pincode" type="number">
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col">
+										<label class="form-label">Пароль</label> <input
+											class="form-control" name="password" type="text">
+									</div>
+
+									<div class="col">
+										<label class="form-label">Повторите пароль</label> <input
+											class="form-control" name="cpassword" type="password">
+									</div>
+								</div>
+							
+									<div class="mb-3">
+										<label class="form-label">Фото профиля</label> <input
+											class="form-control" name="profile_image" type="file">
+									</div>
+								</div>
+
+								<button type="submit"
+									class="btn bg-primary text-white col-md-12">Зарегистрироваться</button>
+							</form>
+						</div>
+
+						<div class="card-footer text-center">
+							Есть аккаунт? <a href="/login" class="text-decoration-none">Войти</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

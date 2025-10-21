@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<!-- Начало карусели -->
+
+		<div id="carouselExample" class="carousel slide">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="img/ecom1.png" class="d-block w-100" alt="..."
+						style="height: 350px; object-fit: cover;">
+				</div>
+				<div class="carousel-item active">
+					<img src="img/ecom2.png" class="d-block w-100" alt="..."
+						style="height: 350px; object-fit: cover;">
+				</div>
+				<div class="carousel-item active">
+					<img src="img/ecom3.png" class="d-block w-100" alt="..."
+						style="height: 350px; object-fit: cover;">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselExample" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselExample" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+
+		<!-- Конец карусели -->
+
+		<!-- Начало модуля Категории -->
+
+		<div class="container my-4">
+			<div class="row justify-content-center">
+			
+			
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+					<div class="card border-0 text-center">
+						<div class="card-body p-2">
+							<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow"
+								style="width: 200px; height: 200px;">
+								<img src="img/category_img/appli.png"
+									class="w-100 h-100 object-fit-cover" alt="Электроника">
+							</div>
+							<p class="mb-0 fw-medium">Электроника</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+					<div class="card border-0 text-center">
+						<div class="card-body p-2">
+							<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow"
+								style="width: 200px; height: 200px;">
+								<img src="img/category_img/beuty.png"
+									class="w-100 h-100 object-fit-cover" alt="Косметика">
+							</div>
+							<p class="mb-0 fw-medium">Косметика</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+					<div class="card border-0 text-center">
+						<div class="card-body p-2">
+							<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow"
+								style="width: 200px; height: 200px;">
+								<img src="img/category_img/groccery.jpg"
+									class="w-100 h-100 object-fit-cover" alt="Бакалея">
+							</div>
+							<p class="mb-0 fw-medium">Бакалея</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+					<div class="card border-0 text-center">
+						<div class="card-body p-2">
+							<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow"
+								style="width: 200px; height: 200px;">
+								<img src="img/category_img/laptop.jpg"
+									class="w-100 h-100 object-fit-cover" alt="Ноутбуки">
+							</div>
+							<p class="mb-0 fw-medium">Ноутбуки</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+					<div class="card border-0 text-center">
+						<div class="card-body p-2">
+							<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow"
+								style="width: 200px; height: 200px;">
+								<img src="img/category_img/mobile.png"
+									class="w-100 h-100 object-fit-cover" alt="Смартфоны">
+							</div>
+							<p class="mb-0 fw-medium">Смартфоны</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+					<div class="card border-0 text-center">
+						<div class="card-body p-2">
+							<div class="rounded-circle overflow-hidden mx-auto mb-2 shadow"
+								style="width: 200px; height: 200px;">
+								<img src="img/category_img/pant.png"
+									class="w-100 h-100 object-fit-cover" alt="Одежда">
+							</div>
+							<p class="mb-0 fw-medium">Одежда</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Конец модуля Категории -->
+
+		<!-- Начало модуля Последний продукт -->
+		<div class="container-fluid bg-light p-3">
+			<div class="row justify-content-center">
+				<p class="text-center fs-4 mb-3">Последний просмотренный товар</p>
+
+				<div class="col-md-3">
+					<div class="card shadow">
+						<div class="card-body text-center p-3">
+							<img alt="Товар" src="img/product_img/laptop.jpg"
+								class="img-fluid mb-2" width="65%">
+							<h6 class="fw-bold">Ноутбук ASUS</h6>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="card shadow">
+						<div class="card-body text-center p-3">
+							<img alt="Товар" src="img/product_img/laptop.jpg"
+								class="img-fluid mb-2" width="65%">
+							<h6 class="fw-bold">Ноутбук ASUS</h6>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="card shadow">
+						<div class="card-body text-center p-3">
+							<img alt="Товар" src="img/product_img/laptop.jpg"
+								class="img-fluid mb-2" width="65%">
+							<h6 class="fw-bold">Ноутбук ASUS</h6>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="card shadow">
+						<div class="card-body text-center p-3">
+							<img alt="Товар" src="img/product_img/laptop.jpg"
+								class="img-fluid mb-2" width="65%">
+							<h6 class="fw-bold">Ноутбук ASUS</h6>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- Конец модуля Последний продукт -->
+
+
+	</section>
+
+</body>
+</html>
