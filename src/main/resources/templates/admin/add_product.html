@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container p-5 mt-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card card-sh">
+						<div class="card-header text-center fs-4">Добавить товар</div>
+						<div class="card-body">
+							<form>
+								<div class="mb-3">
+									<label>Ввести название: </label> <input type="text"
+										name="tittle" class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Ввести описание: </label>
+									<textarea rows="3" cols="" class="form-control"></textarea>
+								</div>
+
+								<div class="mb-3">
+									<label>Выбрать категорию: </label> <select
+										class="form-control">
+										<option>--выбрать--</option>
+										<option>Электроника</option>
+									</select>
+								</div>
+
+								<div class="mb-3">
+									<label>Ввести цену: </label> <input type="text" name="tittle"
+										class="form-control">
+								</div>
+
+								<div class="row">
+									<div class="mb-3 col-md-4">
+										<label>Ввести скидку: </label> <input type="text" name="tittle"
+											class="form-control">
+									</div>
+									<div class="mb-3 col-md-8">
+										<label>Загрузить изображение: </label> <input type="file" name="tittle"
+											class="form-control">
+									</div>
+								</div>
+								<button class="btn btn-primary col-md-12">Добавить</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
