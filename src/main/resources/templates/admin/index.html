@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container p-5">
+			<p class="text-center fs-3 mt-4">Админ. панель</p>
+			<div class="row p-5">
+				<div class="col-md-4 mt-2">
+					<a href="#" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-primary">
+								<i class="fa-solid fa-cart-plus fa-3x"></i>
+								<h4>Добавление товара</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div class="col-md-4 mt-2">
+					<a href="#" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-warning">
+								<i class="fa-solid fa-icons fa-3x"></i>
+								<h4>Добавление категории</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div class="col-md-4 mt-2">
+					<a href="#" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-success">
+								<i class="fa-solid fa-table-list fa-3x"></i>
+								<h4>Просмотр товаров</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div class="col-md-4 mt-4">
+					<a href="#" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-secondary">
+								<i class="fa-solid fa-boxes-stacked fa-3x"></i>
+								<h4>Заказы</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div class="col-md-4 mt-4">
+					<a href="#" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-info">
+								<i class="fa-solid fa-users fa-3x"></i>
+								<h4>Пользователи</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div class="col-md-4 mt-4">
+					<a href="#" class="text-decoration-none">
+						<div class="card card-sh">
+							<div class="card-body text-center text-danger">
+								<i class="fa-solid fa-user-secret fa-3x"></i>
+								<h4>Добавление админа</h4>
+							</div>
+						</div>
+					</a>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+</body>
+</html>
