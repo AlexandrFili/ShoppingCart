@@ -3,6 +3,7 @@ package com.ecom.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecom.model.Category;
+import com.ecom.model.Product;
 import com.ecom.service.CategoryService;
+import com.ecom.service.ProductService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -32,13 +35,18 @@ public class AdminController {
 	@Autowired
 	private CategoryService categoryService;
 
+	@Autowired
+	private ProductService productService;
+
 	@GetMapping("/")
 	public String index() {
 		return "admin/index";
 	}
 
 	@GetMapping("/loadAddProduct")
-	public String loadAddProduct() {
+	public String loadAddProduct(Model m) {
+		List<Category> categories = categoryService.getAllCategory();
+		m.addAttribute("categories", categories);
 		return "admin/add_product";
 	}
 
@@ -128,7 +136,7 @@ public class AdminController {
 				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
 						+ file.getOriginalFilename());
 
-				//System.out.println(path);
+				// System.out.println(path);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 			}
 
@@ -138,6 +146,33 @@ public class AdminController {
 		}
 
 		return "redirect:/admin/loadEditCategory/" + category.getId();
+	}
+
+	@PostMapping("/saveProduct")
+	public String saveProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile image, HttpSession session) throws IOException {
+
+		String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
+		
+		product.setImage(imageName);
+		
+		Product saveProduct = productService.saveProduct(product);
+
+		if (!ObjectUtils.isEmpty(saveProduct)) {
+			
+			File saveFile = new ClassPathResource("static/img").getFile();
+
+			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
+					+ image.getOriginalFilename());
+
+			System.out.println(path);
+			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+			session.setAttribute("succMsg", "Товар успешно добавлен!");
+		}else {
+			session.setAttribute("errorMsg", "Что-то не так на сервере.");
+		}
+
+		return "redirect:/admin/loadAddProduct";
 	}
 
 }
