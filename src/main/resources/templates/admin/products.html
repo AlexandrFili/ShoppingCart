@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container mt-5 p-5">
+			<div class="card card-sh">
+				<div class="card-header text-center">
+					<p class="fs-4">Просмотр товаров</p>
+
+					<th:block th:if="${session.succMsg}">
+						<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+
+					</th:block>
+
+					<th:block th:if="${session.errorMsg}">
+						<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">№</th>
+								<th scope="col">Изображение</th>
+								<th scope="col">Название</th>
+								<th scope="col">Категория</th>
+								<th scope="col">Цена</th>
+								<th scope="col">Скидка</th>
+								<th scope="col">Действие</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="p,c:${products}">
+								<th scope="row">[[${c.count}]]</th>
+								<td><img th:src="@{'/img/product_img/'+${p.image}}"
+									width="120px" height="120px"></td>
+								<td>[[${p.title}]]</td>
+								<td>[[${p.category}]]</td>
+								<td>[[${p.price}]]</td>
+								<td>[[${p.stock}]]</td>
+								<td><a href="#" class="btn btn-sm btn-primary"><i
+										class="fa-solid fa-pen-to-square"></i> Редактировать</a> <a
+									th:href="@{'/admin/deleteProduct/'+${p.id}}"
+									class="btn btn-sm btn-danger"><i
+										class="fa-solid fa-trash-can"></i> Удалить</a></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

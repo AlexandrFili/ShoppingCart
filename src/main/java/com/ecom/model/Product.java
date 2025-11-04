@@ -23,7 +23,7 @@ public class Product {
 	private int id;
 	
 	@Column(length = 500)
-	private String tittle; 
+	private String title; 
 	
 	@Column(length = 5000)
 	private String description;

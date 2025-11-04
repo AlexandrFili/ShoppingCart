@@ -149,16 +149,17 @@ public class AdminController {
 	}
 
 	@PostMapping("/saveProduct")
-	public String saveProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile image, HttpSession session) throws IOException {
+	public String saveProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile image,
+			HttpSession session) throws IOException {
 
 		String imageName = image.isEmpty() ? "default.jpg" : image.getOriginalFilename();
-		
+
 		product.setImage(imageName);
-		
+
 		Product saveProduct = productService.saveProduct(product);
 
 		if (!ObjectUtils.isEmpty(saveProduct)) {
-			
+
 			File saveFile = new ClassPathResource("static/img").getFile();
 
 			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
@@ -168,11 +169,31 @@ public class AdminController {
 			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
 			session.setAttribute("succMsg", "Товар успешно добавлен!");
-		}else {
+		} else {
 			session.setAttribute("errorMsg", "Что-то не так на сервере.");
 		}
 
 		return "redirect:/admin/loadAddProduct";
+	}
+
+	@GetMapping("/products")
+	public String loadViewProduct(Model m) {
+		m.addAttribute("products", productService.getAllProducts());
+		return "admin/products";
+
+	}
+
+	@GetMapping("/deleteProduct/{id}")
+	public String deleteProduct(@PathVariable int id, HttpSession session) {
+		Boolean deleteProduct = productService.deleteProduct(id);
+		if (deleteProduct) {
+			session.setAttribute("succMsg", "Товар успешно удален!");
+		} else {
+			session.setAttribute("errorMsg", "Что-то не так на сервере.");
+		}
+
+		return "redirect:/admin/products";
+
 	}
 
 }
