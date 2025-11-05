@@ -9,7 +9,7 @@
 	<section>
 		<div class="container p-5 mt-3">
 			<div class="row">
-				<div class="col-md-6 offset-md-3">
+				<div class="col-md-8 offset-md-2">
 					<div class="card card-sh">
 						<div class="card-header text-center">
 							<p class="fs-4">Редактирование товара</p>
@@ -29,9 +29,9 @@
 						<div class="card-body">
 							<form action="/admin/updateProduct" method="post"
 								enctype="multipart/form-data">
-								
+
 								<input type="hidden" name="id" th:value="${product.id}">
-								
+
 								<div class="mb-3">
 									<label>Ввести название: </label> <input type="text"
 										name="title" th:value="${product.title}" class="form-control">
@@ -43,23 +43,37 @@
 										name="description">[[${product.description}]]</textarea>
 								</div>
 
-								<div class="mb-3">
-									<label>Выбрать категорию: </label> <select class="form-control"
-										name="category">
-										<option>[[${product.category}]]</option>
-										<option th:each="c:${categories}">[[${c.name}]]</option>
-									</select>
-								</div>
-
-								<div class="mb-3">
-									<label>Ввести цену: </label> <input type="number" name="price"
-										th:value="${product.price}" class="form-control">
+								<div class="row">
+									<div class="mb-3 col">
+										<label>Выбрать категорию: </label> <select
+											class="form-control" name="category">
+											<option>[[${product.category}]]</option>
+											<option th:each="c:${categories}">[[${c.name}]]</option>
+										</select>
+									</div>
+									<div class="mb-3 col">
+										<label>Ввести цену (руб.): </label> <input type="number" name="price"
+											th:value="${product.price}" class="form-control">
+									</div>
 								</div>
 
 								<div class="row">
+									<div class="mb-3 col">
+										<label>Ввести скидку (%): </label> <input type="number"
+											name="discount" th:value="${product.discount}"
+											class="form-control">
+									</div>
+									<div class="mb-3 col">
+										<label>Цена со скидкой (руб.): </label> <input type="number" readonly
+											th:value="${product.discountPrice}" class="form-control">
+									</div>
+								</div>
+
+
+								<div class="row">
 									<div class="mb-3 col-md-4">
-										<label>Ввести скидку: </label> <input type="text" name="stock"
-											th:value="${product.stock}" class="form-control">
+										<label>Ввести количество (шт.): </label> <input type="text"
+											name="stock" th:value="${product.stock}" class="form-control">
 									</div>
 									<div class="mb-3 col-md-8">
 										<label>Загрузить изображение: </label> <input type="file"

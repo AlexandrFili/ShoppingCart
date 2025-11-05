@@ -34,6 +34,8 @@
 								<th scope="col">Категория</th>
 								<th scope="col">Цена</th>
 								<th scope="col">Скидка</th>
+								<th scope="col">Цена со скидкой</th>
+								<th scope="col">Количество</th>
 								<th scope="col">Действие</th>
 							</tr>
 						</thead>
@@ -45,6 +47,8 @@
 								<td>[[${p.title}]]</td>
 								<td>[[${p.category}]]</td>
 								<td>[[${p.price}]]</td>
+								<td>[[${p.discount}]]</td>
+								<td>[[${p.discountPrice}]]</td>
 								<td>[[${p.stock}]]</td>
 								<td><a th:href="@{'/admin/editProduct/'+${p.id}}"
 									class="btn btn-sm btn-primary"><i
