@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container p-5 mt-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card card-sh">
+						<div class="card-header text-center">
+							<p class="fs-4">Редактирование товара</p>
+
+							<th:block th:if="${session.succMsg}">
+								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+
+							</th:block>
+
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+						</div>
+						<div class="card-body">
+							<form action="/admin/updateProduct" method="post"
+								enctype="multipart/form-data">
+								
+								<input type="hidden" name="id" th:value="${product.id}">
+								
+								<div class="mb-3">
+									<label>Ввести название: </label> <input type="text"
+										name="title" th:value="${product.title}" class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Ввести описание: </label>
+									<textarea rows="3" cols="" class="form-control"
+										name="description">[[${product.description}]]</textarea>
+								</div>
+
+								<div class="mb-3">
+									<label>Выбрать категорию: </label> <select class="form-control"
+										name="category">
+										<option>[[${product.category}]]</option>
+										<option th:each="c:${categories}">[[${c.name}]]</option>
+									</select>
+								</div>
+
+								<div class="mb-3">
+									<label>Ввести цену: </label> <input type="number" name="price"
+										th:value="${product.price}" class="form-control">
+								</div>
+
+								<div class="row">
+									<div class="mb-3 col-md-4">
+										<label>Ввести скидку: </label> <input type="text" name="stock"
+											th:value="${product.stock}" class="form-control">
+									</div>
+									<div class="mb-3 col-md-8">
+										<label>Загрузить изображение: </label> <input type="file"
+											name="file" class="form-control">
+									</div>
+
+									<div class="mt-1">
+										<img th:src="@{'/img/product_img/'+${product.image}}"
+											width="200px" height="200px">
+									</div>
+
+								</div>
+								<button class="btn btn-primary col-md-12 mt-3">Обновить</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

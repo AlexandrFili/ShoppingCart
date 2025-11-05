@@ -196,4 +196,25 @@ public class AdminController {
 
 	}
 
+	@GetMapping("/editProduct/{id}")
+	public String editProduct(@PathVariable int id, Model m) {
+		m.addAttribute("product", productService.getProductById(id));
+		m.addAttribute("categories", categoryService.getAllCategory());
+		return "admin/edit_product";
+	}
+	
+	@PostMapping("/updateProduct")
+	public String updateProduct(@ModelAttribute Product product,@RequestParam("file") MultipartFile image, HttpSession session, Model m) {
+		
+		Product updateProduct = productService.updateProduct(product, image);
+		
+		if(!ObjectUtils.isEmpty(updateProduct)) {
+			session.setAttribute("succMsg", "Товар успешно изменен!");
+		}else {
+			session.setAttribute("errorMsg", "Что-то не так на сервере.");
+		}
+		
+		return "redirect:/admin/editProduct/" + product.getId();
+	}
+	
 }
