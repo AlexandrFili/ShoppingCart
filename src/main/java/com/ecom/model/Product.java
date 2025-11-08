@@ -39,5 +39,8 @@ public class Product {
 	private int discount;
 	
 	private Double discountPrice;
+	
+	private Boolean isActive;
+	
  
 }
