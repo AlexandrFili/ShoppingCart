@@ -16,26 +16,40 @@
 				</div>
 				<div class="col-md-7 p-2">
 					<div class="card shadow">
-						<div class="card-header">
+						<div class="card-header text-center">
 							<p class="fs-4 text-center">Регистрация</p>
+
+							<th:block th:if="${session.succMsg}">
+								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+
+							</th:block>
+
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
 						</div>
 						<div class="card-body">
-							<form>
+							<form action="/saveUser" enctype="multipart/form-data"
+								method="post">
 
 								<div class="row">
 									<div class="col">
-										<label class="form-label">ФИО</label> <input
+										<label class="form-label">ФИО</label> <input required
 											class="form-control" name="name" type="text">
 									</div>
 
 									<div class="col">
 										<label class="form-label">Номер телефона</label> <input
-											class="form-control" name="mobileNumber" type="number">
+											required class="form-control" name="mobileNumber"
+											type="number">
 									</div>
 								</div>
 
 								<div class="mb-3">
-									<label class="form-label">Email</label> <input
+									<label class="form-label">Email</label> <input required
 										class="form-control" name="email" type="email">
 								</div>
 
@@ -43,42 +57,43 @@
 								<div class="row">
 									<div class="col">
 										<label class="form-label">Адрес проживания</label> <input
-											class="form-control" name="address" type="text">
+											required class="form-control" name="address" type="text">
 									</div>
 
 									<div class="col">
-										<label class="form-label">Город</label> <input
+										<label class="form-label">Город</label> <input required
 											class="form-control" name="city" type="text">
 									</div>
 								</div>
 
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Регион</label> <input
+										<label class="form-label">Регион</label> <input required
 											class="form-control" name="region" type="text">
 									</div>
 
 									<div class="col">
 										<label class="form-label">Почтовый индекс</label> <input
-											class="form-control" name="pincode" type="number">
+											required class="form-control" name="pincode" type="number">
 									</div>
 								</div>
 
 								<div class="row">
 									<div class="col">
-										<label class="form-label">Пароль</label> <input
-											class="form-control" name="password" type="text">
+										<label class="form-label">Пароль</label> <input required
+											class="form-control" name="password" type="password">
 									</div>
 
 									<div class="col">
 										<label class="form-label">Повторите пароль</label> <input
-											class="form-control" name="cpassword" type="password">
+											required class="form-control" name="cpassword"
+											type="password">
 									</div>
 								</div>
 
 								<div class="mb-3">
 									<label class="form-label">Фото профиля</label> <input
-										class="form-control" name="profile_image" type="file">
+										class="form-control" name="img" type="file">
 								</div>
 						</div>
 
