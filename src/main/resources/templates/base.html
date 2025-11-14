@@ -14,9 +14,9 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
 	integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
+
 <link rel="stylesheet" href="/css/style.css">
-	
+
 </head>
 <body>
 	<!-- Начало навигационного меню -->
@@ -37,32 +37,52 @@
 						aria-current="page" href="/"><i class="fa-solid fa-house"></i>
 							Домашняя страница</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/products"><i class="fa-solid fa-circle"></i>
-							Товары</a></li>
+						aria-current="page" href="/products"><i
+							class="fa-solid fa-circle"></i> Товары</a></li>
+
+
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"><i
 							class="fa-solid fa-icons"></i> Категории </a>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
+							<li th:each="c:${categorys}"><a class="dropdown-item" th:href="@{'/products?category='+${c.name}}">[[${c.name}]]</a></li>
+			
 						</ul></li>
 				</ul>
 
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/signin"><i
-							class="fa-solid fa-right-to-bracket"></i> Вход</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/register"><i
-							class="fa-solid fa-address-card"></i> Регистрация</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#"><i class="fa-solid fa-user-tie"></i>
-							Админ.панель</a></li>
+					<th:block th:if="${user == null}">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/signin"><i
+								class="fa-solid fa-right-to-bracket"></i> Вход</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/register"><i
+								class="fa-solid fa-address-card"></i> Регистрация</a></li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="#"><i class="fa-solid fa-user-tie"></i>
+								Админ.панель</a></li>
+					</th:block>
+
+					<th:block th:if="${user != null}">
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle active" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false"><i
+								class="fa-solid fa-icons"></i> <i
+								class="fa-solid fa-user-tie"></i> [[${user.name}]] </a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Профиль</a></li>
+								<li><a class="dropdown-item" href="#">Другие действия</a></li>
+
+							</ul></li>
+
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href="/logout"><i
+								class="fa-solid fa-right-to-bracket"></i> Выход</a></li>
+					</th:block>
 				</ul>
+
+
 
 			</div>
 		</div>
@@ -73,8 +93,10 @@
 	<div th:replace="${content}"></div>
 
 	<!-- Начало футера -->
-	<footer class="container-fluid p-1 bg-primary text-center text-white" style="margin-top: 250px" >
-		<p class="mb-0">Сайт создал студент группы ЦМИС-24м Филимонов Александр</p>
+	<footer class="container-fluid p-1 bg-primary text-center text-white"
+		style="margin-top: 250px">
+		<p class="mb-0">Сайт создал студент группы ЦМИС-24м Филимонов
+			Александр</p>
 	</footer>
 	<!-- Конец футера -->
 
