@@ -1,4 +1,4 @@
-g<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{base::Layout(~{::section})}">
 <head>
@@ -20,8 +20,14 @@ g<!DOCTYPE html>
 						<div class="card-header">
 							<p class="fs-4 text-center">Вход</p>
 							
-							<div th:if="${param.error}" class="alert alert-danger text-center"> 
-							[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</div>
+							<div th:if="${param.error}" class="alert alert-danger text-center">
+							
+							<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+							[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+							</th:block>
+							
+							
+							</div>
 							
 							<div th:if="${param.logout}" class="alert alert-success">Выход успешно произведен!</div>
 							
@@ -43,7 +49,7 @@ g<!DOCTYPE html>
 						</div>
 
 						<div class="card-footer text-center">
-							<a href="#" class="text-decoration-none">Забыли пароль?</a><br>
+							<a href="/forgot-password" class="text-decoration-none">Забыли пароль?</a><br>
 							Нет аккаунта? <a href="#" class="text-decoration-none">Создать
 								аккаунт</a>
 						</div>
