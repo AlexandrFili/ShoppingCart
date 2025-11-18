@@ -54,6 +54,18 @@ public class HomeController {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	private final String UPLOAD_DIR = "uploads/";
+
+
+	private void saveFile(MultipartFile file, String subDirectory, String fileName) throws IOException {
+        if (file != null && !file.isEmpty()) {
+            Path path = Paths.get(UPLOAD_DIR + subDirectory + "/" + fileName);
+            Files.createDirectories(path.getParent());
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("✅ Файл профиля сохранен: " + path.toAbsolutePath());
+        }
+    }
 
 	@ModelAttribute
 	public void getUsersDetails(Principal p, Model m) {
@@ -101,34 +113,26 @@ public class HomeController {
 		return "view_product";
 	}
 
-	@PostMapping("/saveUser")
 	public String saveUser(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session)
-			throws IOException {
+            throws IOException {
 
-		String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
+        String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
+        user.setProfileImage(imageName);
 
-		user.setProfileImage(imageName);
+        UserDtls saveUser = userService.saveUser(user);
 
-		UserDtls saveUser = userService.saveUser(user);
+        if (!ObjectUtils.isEmpty(saveUser)) {
+            if (!file.isEmpty()) {
+                // ✅ СОХРАНЯЕМ В UPLOADS
+                saveFile(file, "profile_img", file.getOriginalFilename());
+                session.setAttribute("succMsg", "Профиль успешно зарегистрирован!");
+            }
+        } else {
+            session.setAttribute("errorMsg", "Что-то не так на сервере.");
+        }
 
-		if (!ObjectUtils.isEmpty(saveUser)) {
-			if (!file.isEmpty()) {
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
-						+ file.getOriginalFilename());
-
-				// System.out.println(path);
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-				session.setAttribute("succMsg", "Профиль успешно зарегистрирован!");
-			}
-		} else {
-			session.setAttribute("errorMsg", "Что-то не так на сервере.");
-		}
-
-		return "redirect:/register";
-	}
+        return "redirect:/register";
+    }
 
 	// Восстановление пароля - код
 
