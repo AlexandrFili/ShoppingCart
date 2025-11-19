@@ -113,6 +113,7 @@ public class HomeController {
 		return "view_product";
 	}
 
+	@PostMapping("/saveUser")
 	public String saveUser(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session)
             throws IOException {
 
