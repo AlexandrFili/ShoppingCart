@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid mt-5 p-5">
+			<div class="card card-sh">
+				<div class="card-header text-center">
+					<p class="fs-4">Просмотр корзины</p>
+
+					<th:block th:if="${session.succMsg}">
+						<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+
+					</th:block>
+
+					<th:block th:if="${session.errorMsg}">
+						<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+
+				</div>
+				<div class="card-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">№</th>
+								<th scope="col">Изображение</th>
+								<th scope="col">Название товара</th>
+								<th scope="col">Цена</th>
+								<th scope="col" class="text-center">Количество</th>
+								<th scope="col">Итоговая стоимость</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="cart,c:${carts}">
+								<th scope="row">[[${c.count}]]</th>
+								<td><img
+									th:src="@{'/uploads/product_img/'+${cart.product.image}}"
+									width="120px" height="120px"></td>
+								<td>[[${cart.product.title}]]</td>
+								<td>[[${cart.product.discountPrice}]] &#8381;</td>
+								<td class="text-center"><a
+									th:href="@{'/user/cartQuantityUpdate?sy=de&cid='+${cart.id}}">
+										<i class="fa-solid fa-minus"></i>
+								</a> [ [[${cart.quantity}]] ] <a
+									th:href="@{'/user/cartQuantityUpdate?sy=in&cid='+${cart.id}}">
+										<i class="fa-solid fa-plus"></i>
+								</a></td>
+								<td>[[${cart.totalPrice}]] &#8381;</td>
+							</tr>
+							<tr>
+								<td colspan="4"></td>
+								<td class="fw-bold">Итоговая стоимость</td>
+								<td class="fw-bold">[[${totalOrderPrice}]] &#8381;</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="text-center">
+						<a href="#" class="btn btn-warning"> Оплатить</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
