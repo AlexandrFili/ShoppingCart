@@ -9,108 +9,110 @@
 	<section>
 
 		<div class="container mt-5 p-5">
-			<div class="row">
+			<form action="/user/save-order" method="post">
+				<div class="row">
 
-				<div class="col-md-6 p-2">
+					<div class="col-md-6 p-2">
 
-					<form>
+
 						<div class="mb-3 row">
 							<p class="text-center fs-2">Введите данные получателя</p>
 							<hr>
 							<div class="col">
-								<label>Имя</label><input type="text" name="firstName"
+								<label>Имя</label><input type="text" name="firstName" required
 									class="form-control mt-1">
 							</div>
 							<div class="col">
-								<label>Фамилия</label><input type="text" name="lastName"
-									class="form-control mt-1">
-							</div>
-						</div>
-
-						<div class="mb-3 row">
-							<div class="col">
-								<label>Электронная почта</label><input type="text" name="email"
-									class="form-control mt-1">
-							</div>
-							<div class="col">
-								<label>Номер телефона</label><input type="text" name="mobileNo"
+								<label>Фамилия</label><input type="text" name="lastName" required
 									class="form-control mt-1">
 							</div>
 						</div>
 
 						<div class="mb-3 row">
 							<div class="col">
-								<label>Адрес (улица, дом, кв.)</label><input type="text"
+								<label>Электронная почта</label><input type="text" name="email" required
+									class="form-control mt-1">
+							</div>
+							<div class="col">
+								<label>Номер телефона</label><input type="text" name="mobileNo" required
+									class="form-control mt-1">
+							</div>
+						</div>
+
+						<div class="mb-3 row">
+							<div class="col">
+								<label>Адрес (улица, дом, кв.)</label><input type="text" required
 									name="address" class="form-control mt-1">
 							</div>
 							<div class="col">
-								<label>Населенный пункт</label><input type="text" name="city"
+								<label>Населенный пункт</label><input type="text" name="city" required
 									class="form-control mt-1">
 							</div>
 						</div>
 
 						<div class="mb-3 row">
 							<div class="col">
-								<label>Регион (область, край и т.п.)</label><input type="text"
+								<label>Регион (область, край и т.п.)</label><input type="text" required
 									name="region" class="form-control mt-1">
 							</div>
 							<div class="col">
-								<label>Почтовый индекс</label><input type="number"
+								<label>Почтовый индекс</label><input type="number" required
 									name="pincode" class="form-control mt-1">
 							</div>
 						</div>
-					</form>
+						<!-- </form> -->
 
-				</div>
-				<div class="col-md-6 mt-2">
-					<p class="text-center fs-2">Оплата заказа</p>
-					<hr>
-					<div class="card shadow">
-						<div class="card-body">
-							<table class="table table-borderless">
-								<tbody>
-									<tr>
-										<td>Стоимость товаров :</td>
-										<td>много &#8381;</td>
-									</tr>
-									
-									<tr>
-										<td>Плата за доставку :</td>
-										<td>еще больше &#8381;</td>
-									</tr>
-
-									<tr class="border-top">
-										<td>Итоговая стоимость :</td>
-										<td>ОЧЕНЬ МНОГО &#8381;</td>
-									</tr>
-
-								</tbody>
-							</table>
-						</div>
 					</div>
-					<div class="card shadow mt-2">
+					<div class="col-md-6 mt-2">
+						<p class="text-center fs-2">Оплата заказа</p>
+						<hr>
+						<div class="card shadow">
+							<div class="card-body">
+								<table class="table table-borderless">
+									<tbody>
+										<tr>
+											<td>Стоимость товаров :</td>
+											<td>много &#8381;</td>
+										</tr>
 
-						<div class="card-body">
-							<form action="/login" method="post">
+										<tr>
+											<td>Плата за доставку :</td>
+											<td>еще больше &#8381;</td>
+										</tr>
+
+										<tr class="border-top">
+											<td>Итоговая стоимость :</td>
+											<td>ОЧЕНЬ МНОГО &#8381;</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="card shadow mt-2">
+
+							<div class="card-body">
+								<!--<form action="/login" method="post">-->
 								<div class="mb-3">
-									<label class="form-label">Выбрат способ оплаты</label> <select
-										class="form-control">
+									<label class="form-label">Выбрат способ оплаты</label> <select required
+										name="paymentType" class="form-control">
 										<option>--выбрать--</option>
-										<option>Наличными</option>
-										<option>Онлайн</option>
+										<option value="COD">Наложенный платеж</option>
+										<option value="ONLINE">Онлайн</option>
 									</select>
 								</div>
 
-								<button type="submit"
-									class="btn bg-primary text-white col-md-12">
+								<button class="btn bg-primary text-white col-md-12">
 									<i class="fa-solid fa-cart-arrow-down"></i> Оформить заказ
 								</button>
-							</form>
-						</div>
 
+							</div>
+
+						</div>
 					</div>
+
 				</div>
-			</div>
+			</form>
 		</div>
 
 	</section>

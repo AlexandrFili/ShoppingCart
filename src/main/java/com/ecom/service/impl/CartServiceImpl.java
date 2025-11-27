@@ -98,6 +98,8 @@ public class CartServiceImpl implements CartService{
 			}
 		}else {
 			updateQuantity = cart.getQuantity() + 1;
+			cart.setQuantity(updateQuantity);
+			cartRepository.save(cart);
 		}
 		
 		
