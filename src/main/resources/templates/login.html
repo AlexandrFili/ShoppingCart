@@ -3,7 +3,7 @@
 	th:replace="~{base::Layout(~{::section})}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Вход в систему</title>
 </head>
 <body>
 	<section>
@@ -20,38 +20,78 @@
 						<div class="card-header">
 							<p class="fs-4 text-center">Вход</p>
 							
+							<!-- Обновленный блок отображения ошибок -->
 							<div th:if="${param.error}" class="alert alert-danger text-center">
-							
-							<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
-							[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
-							</th:block>
-							
-							
+								<th:block th:switch="${param.error[0]}">
+									<p th:case="'user_not_found'" class="mb-0">
+										<i class="fa-solid fa-user-slash"></i> Пользователь с таким email не найден
+									</p>
+									<p th:case="'account_locked'" class="mb-0">
+										<i class="fa-solid fa-lock"></i> Аккаунт временно заблокирован. Попробуйте позже.
+									</p>
+									<p th:case="'account_disabled'" class="mb-0">
+										<i class="fa-solid fa-ban"></i> Аккаунт отключен администратором.
+									</p>
+									<p th:case="'account_unlocked'" class="mb-0">
+										<i class="fa-solid fa-lock-open"></i> Аккаунт разблокирован. Попробуйте войти снова.
+									</p>
+									<p th:case="'invalid_credentials'" class="mb-0">
+										<i class="fa-solid fa-key"></i> Неверный email или пароль.
+										<span th:if="${param.attempts}" class="fw-bold">
+											Осталось попыток: [[${param.attempts[0]}]]
+										</span>
+									</p>
+									<p th:case="*" class="mb-0">
+										<i class="fa-solid fa-triangle-exclamation"></i> 
+										<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+											[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+										</th:block>
+										<th:block th:unless="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+											Ошибка аутентификации. Попробуйте еще раз.
+										</th:block>
+									</p>
+								</th:block>
 							</div>
 							
-							<div th:if="${param.logout}" class="alert alert-success">Выход успешно произведен!</div>
+							<div th:if="${param.logout}" class="alert alert-success text-center">
+								<i class="fa-solid fa-check"></i> Выход успешно произведен!
+							</div>
+							
+							<!-- Сообщения об успешной регистрации или сбросе пароля -->
+							<th:block th:if="${session.succMsg}">
+								<p class="text-success fw-bold alert alert-success text-center">
+									[[${session.succMsg}]]
+								</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
 							
 						</div>
 						<div class="card-body">
 							<form action="/login" method="post">
 								<div class="mb-3">
-									<label class="form-label">Email</label> <input
-										class="form-control" name="username" type="email">
+									<label class="form-label">Email</label> 
+									<input class="form-control" name="username" type="email" required>
 								</div>
 
 								<div class="mb-3">
-									<label class="form-label">Пароль</label> <input
-										class="form-control" name="password" type="password">
+									<label class="form-label">Пароль</label> 
+									<input class="form-control" name="password" type="password" required>
 								</div>
 								<button type="submit"
-									class="btn bg-primary text-white col-md-12">Войти</button>
+									class="btn bg-primary text-white col-md-12">
+									<i class="fa-solid fa-right-to-bracket"></i> Войти
+								</button>
 							</form>
 						</div>
 
 						<div class="card-footer text-center">
-							<a href="/forgot-password" class="text-decoration-none">Забыли пароль?</a><br>
-							Нет аккаунта? <a href="#" class="text-decoration-none">Создать
-								аккаунт</a>
+							<a href="/forgot-password" class="text-decoration-none">
+								<i class="fa-solid fa-key"></i> Забыли пароль?
+							</a><br>
+							Нет аккаунта? 
+							<a href="/register" class="text-decoration-none"> <!-- Добавлена ссылка на регистрацию -->
+								<i class="fa-solid fa-user-plus"></i> Создать аккаунт
+							</a>
 						</div>
 
 					</div>

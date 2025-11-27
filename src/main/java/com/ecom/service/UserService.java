@@ -28,4 +28,6 @@ public interface UserService {
 	
 	public UserDtls updateUser(UserDtls user);
 
+	public Boolean deleteUser(Integer id);
+
 }

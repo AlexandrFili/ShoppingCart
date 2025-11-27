@@ -10,7 +10,16 @@
 		<div class="container-fluid mt-5 p-5">
 			<div class="card card-sh">
 				<div class="card-header text-center">
-					<p class="fs-4">Пользователи</p>
+					<div class="row align-items-center">
+						<div class="col-md-6">
+							<p class="fs-4">Пользователи</p>
+						</div>
+						<div class="col-md-6 text-end">
+							<a href="/register" class="btn btn-success"> <i
+								class="fa-solid fa-user-plus"></i> Создать пользователя
+							</a>
+						</div>
+					</div>
 
 					<th:block th:if="${session.succMsg}">
 						<p class="text-success fw-bold">[[${session.succMsg}]]</p>
@@ -41,22 +50,36 @@
 						<tbody>
 							<tr th:each="u,c:${users}">
 								<th scope="row">[[${c.count}]]</th>
-								<td><img th:src="@{'/uploads/profile_img/'+${u.profileImage}}"
+								<td><img
+									th:src="@{'/uploads/profile_img/'+${u.profileImage}}"
 									width="120px" height="120px"></td>
 								<td>[[${u.name}]]</td>
 								<td>[[${u.email}]]</td>
 								<td>[[${u.mobileNumber}]]</td>
-								<td>[[${u.address+','+u.city+','+u.region+','+u.pincode}]]</td>
+								<td>[[${u.address+', '+u.city+', '+u.region+',
+									'+u.pincode}]]</td>
 								<td>[[${u.isEnable}]]</td>
-								<td><a
-									th:href="@{'/admin/updateSts?status=true&id='+${u.id}}"
-									class="btn btn-sm btn-primary"> Есть в системе</a> 
-										
-										
-										
-										<a
-									th:href="@{'/admin/updateSts?status=false&id='+${u.id}}"
-									class="btn btn-sm btn-danger"> Нет в системе</a></td>
+								<td>
+									<div class="btn-group" role="group">
+										<!-- Кнопка блокировки/разблокировки -->
+										<a th:if="${u.isEnable}"
+											th:href="@{'/admin/updateSts?status=false&id='+${u.id}}"
+											class="btn btn-sm btn-warning"> <i
+											class="fa-solid fa-lock"></i> Заблокировать
+										</a> <a th:unless="${u.isEnable}"
+											th:href="@{'/admin/updateSts?status=true&id='+${u.id}}"
+											class="btn btn-sm btn-success"> <i
+											class="fa-solid fa-lock-open"></i> Разблокировать
+										</a>
+
+										<!-- Кнопка удаления -->
+										<a th:href="@{'/admin/deleteUser/'+${u.id}}"
+											class="btn btn-sm btn-danger"
+											onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?')">
+											<i class="fa-solid fa-trash-can"></i> Удалить
+										</a>
+									</div>
+								</td>
 							</tr>
 
 						</tbody>

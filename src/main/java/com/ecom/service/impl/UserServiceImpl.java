@@ -11,7 +11,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import com.ecom.model.Product;
 import com.ecom.model.UserDtls;
 import com.ecom.repository.UserRepository;
 import com.ecom.service.UserService;
@@ -125,7 +127,17 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
-	
+	@Override
+	public Boolean deleteUser(Integer id) {
+		UserDtls user = userRepository.findById(id).orElse(null);
+
+		if (!ObjectUtils.isEmpty(user)) {
+			userRepository.delete(user);
+			return true;
+		}
+
+		return false;
+	}
 	
 
 

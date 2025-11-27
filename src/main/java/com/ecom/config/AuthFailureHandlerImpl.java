@@ -20,44 +20,57 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class AuthFailureHandlerImpl extends SimpleUrlAuthenticationFailureHandler {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Override
-	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException exception) throws IOException, ServletException {
 
-		String email = request.getParameter("username");
+        String email = request.getParameter("username");
+        UserDtls userDtls = userRepository.findByEmail(email);
 
-		UserDtls userDtls = userRepository.findByEmail(email);
+        // ✅ ДОБАВЛЕНА ПРОВЕРКА НА NULL
+        if (userDtls == null) {
+            exception = new LockedException("Пользователь с таким email не найден!");
+            super.setDefaultFailureUrl("/signin?error=user_not_found");
+            super.onAuthenticationFailure(request, response, exception);
+            return;
+        }
 
-		if (userDtls.getIsEnable()) {
+        // Если пользователь найден, продолжаем проверки
+        if (userDtls.getIsEnable()) {
 
-			if (userDtls.getAccountNonLocked()) {
+            if (userDtls.getAccountNonLocked()) {
 
-				if (userDtls.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
-					userService.increaseFailedAttempt(userDtls);
-				} else {
-					userService.userAccountLock(userDtls);
-					exception = new LockedException("Ваш аккаунт заблокирован! Больше 3-х попыток с неверным логином или паролем!");
-				}
-			} else {
-				
-				if (userService.unlockAccountTimeExpired(userDtls)) {
-					exception = new LockedException("Ваш аккаунт разблокирован! Пожалуйста, введите данные еще раз!");
-				}else {
-					exception = new LockedException("Ваш аккаунт заблокирован! Попробуйте зайти позже.");
-				}
-			}
-		} else {
-			exception = new LockedException("Ваш аккаунт неактивен!");
-		}
-		
-		super.setDefaultFailureUrl("/signin?error");
-		super.onAuthenticationFailure(request, response, exception);
-	}
-
+                if (userDtls.getFailedAttempt() < AppConstant.ATTEMPT_TIME) {
+                    userService.increaseFailedAttempt(userDtls);
+                    int remainingAttempts = AppConstant.ATTEMPT_TIME - userDtls.getFailedAttempt();
+                    exception = new LockedException("Неверный email или пароль! Осталось попыток: " + remainingAttempts);
+                    super.setDefaultFailureUrl("/signin?error=invalid_credentials&attempts=" + remainingAttempts);
+                } else {
+                    userService.userAccountLock(userDtls);
+                    exception = new LockedException("Ваш аккаунт заблокирован! Больше 3-х попыток с неверным логином или паролем!");
+                    super.setDefaultFailureUrl("/signin?error=account_locked");
+                }
+            } else {
+                
+                if (userService.unlockAccountTimeExpired(userDtls)) {
+                    exception = new LockedException("Ваш аккаунт разблокирован! Пожалуйста, введите данные еще раз!");
+                    super.setDefaultFailureUrl("/signin?error=account_unlocked");
+                } else {
+                    exception = new LockedException("Ваш аккаунт заблокирован! Попробуйте зайти позже.");
+                    super.setDefaultFailureUrl("/signin?error=account_locked");
+                }
+            }
+        } else {
+            exception = new LockedException("Ваш аккаунт неактивен!");
+            super.setDefaultFailureUrl("/signin?error=account_disabled");
+        }
+        
+        super.onAuthenticationFailure(request, response, exception);
+    }
 }

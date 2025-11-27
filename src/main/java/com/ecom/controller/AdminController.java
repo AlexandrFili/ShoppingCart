@@ -258,5 +258,18 @@ public class AdminController {
 		
 		return "redirect:/admin/users";
 	}
+	
+	@GetMapping("/deleteUser/{id}")
+	public String deleteUser(@PathVariable Integer id, HttpSession session) {
+	    Boolean deleteUser = userService.deleteUser(id);
+	    
+	    if(deleteUser) {
+	        session.setAttribute("succMsg", "Пользователь успешно удален!");
+	    } else {
+	        session.setAttribute("errorMsg", "Что-то не так на сервере.");
+	    }
+	    
+	    return "redirect:/admin/users";
+	}
 
 }
