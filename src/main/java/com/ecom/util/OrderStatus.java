@@ -3,7 +3,7 @@ package com.ecom.util;
 public enum OrderStatus {
 
 	IN_PROGRESS(1, "В обработке"), 
-	ORDER_RECIVED(2, "Зазаз получен"), 
+	ORDER_RECEIVED(2, "Зазаз получен"), 
 	PRODUCT_PACKED(3, "Товар упакован"),
 	OUT_FOR_DELIVERY(4, "Отправлен в доставку"), 
 	DELIVERED(5, "Доставлен"),

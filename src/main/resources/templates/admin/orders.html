@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::Layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid mt-5 p-5">
+			<div class="row">
+				<p class="text-center fs-3">Все заказы</p>
+				<hr>
+				<th:block th:if="${session.succMsg}">
+					<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+
+				<th:block th:if="${session.errorMsg}">
+					<p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
+					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
+
+				<div class="col-md-4 p-4">
+
+					<form>
+						<div class="row">
+							<div class="col">
+								<input type="text" class="form-control col" name=""
+									placeholder="Введите ID заказа">
+							</div>
+
+							<div class="col">
+								<button class="btn btn-primary col">Поиск</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-md-12 ps-4 pe-12">
+
+					<table class="table table-bordered card-sh">
+						<thead>
+							<tr>
+								<th scope="col">ID Заказа</th>
+								<th scope="col">Детали доставки</th>
+								<th scope="col">Дата</th>
+								<th scope="col">Наименование товара</th>
+								<th scope="col">Детали заказа</th>
+								<th scope="col">Статус</th>
+								<th scope="col">Действие</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="o:${orders}">
+								<th scope="row">[[${o.orderId}]]</th>
+
+								<td><strong>Имя и фамилия :</strong>
+									[[${o.orderAddress.firstName+' '+o.orderAddress.lastName}]]<br>
+									<strong>Электронная почта :</strong>
+									[[${o.orderAddress.email}]]<br> <strong>Номер
+										телефона :</strong> [[${o.orderAddress.mobileNo}]]<br> <strong>Регион
+										:</strong> [[${o.orderAddress.region}]]<br> <strong>Нас.
+										пункт :</strong> [[${o.orderAddress.city}]]<br> <strong>Адрес
+										:</strong> [[${o.orderAddress.address}]]<br> <strong>Почтовый
+										индекс :</strong> [[${o.orderAddress.pincode}]]</td>
+
+								<td>[[${o.orderDate}]]</td>
+								<td>[[${o.product.title}]]</td>
+								<td><strong>Количество :</strong> [[${o.quantity}]] <br>
+									<strong>Цена товара :</strong> [[${o.price}]] &#8381; <br>
+									<strong>Итоговая стоимость :</strong> [[${o.quantity *
+									o.price}]] &#8381;</td>
+								<td>[[${o.status}]]</td>
+								<td>
+									<form action="/admin/update-order-status" method="post">
+										<div class="row">
+											<div class="col">
+												<select class="form-control" name="st">
+													<option>--выбрать--</option>
+													<option value="1">В обработке</option>
+													<option value="2">Заказ получен</option>
+													<option value="3">Товар упакован</option>
+													<option value="4">Отправлен в доставку</option>
+													<option value="5">Доставлен</option>
+													<option value="6">Отменен</option>
+												</select>
+											</div>
+											<input th:value="${o.id}" name="id" type="hidden">
+											<div class="col">
+
+												<th:block th:if="${o.status=='Отменен' || o.status=='Доставлен'}">
+													<button class="btn btn-primary btn-sm col disabled">Обновить</button>
+												</th:block>
+												<th:block th:unless="${o.status=='Отменен' || o.status=='Доставлен'}">
+													<button class="btn btn-sm btn-primary">Обновить</button>
+												</th:block>
+												
+											</div>
+										</div>
+									</form>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</section>
+</body>
+</html>
