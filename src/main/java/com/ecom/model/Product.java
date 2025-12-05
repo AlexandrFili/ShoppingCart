@@ -10,37 +10,51 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+//Данный класс представляет собой основную сущность - модель товара
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity
+//Lombok аннотации:
+@AllArgsConstructor  // Генерирует конструктор со всеми полями
+@NoArgsConstructor   // Генерирует конструктор без аргументов (обязателен для JPA)
+@Getter              // Генерирует геттеры для всех полей
+@Setter              // Генерирует сеттеры для всех полей
+@Entity              // Помечает класс как JPA сущность (таблица в БД)
 public class Product {
 	
+	// 1️. ПЕРВИЧНЫЙ КЛЮЧ
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  // Стратегия генерации ID: IDENTITY = автоинкремент в БД
 	private int id;
 	
-	@Column(length = 500)
-	private String title; 
+	// 2️. ОСНОВНАЯ ИНФОРМАЦИЯ О ТОВАРЕ
 	
-	@Column(length = 5000)
-	private String description;
+	@Column(length = 500) // Указываем максимальную длину VARCHAR(500)
+	private String title; // Название товара
 	
-	private String category;
+	@Column(length = 5000) // Указываем максимальную длину VARCHAR(5000)
+	private String description; // Описание товара
 	
-	private Double price;
+	private String category; // Категория товара (как строка)
 	
-	private int stock;
+	 // 3️. ЦЕНА И НАЛИЧИЕ
 	
-	private String image;
+	private Double price; // Базовая цена товара
 	
-	private int discount;
+	private int stock; // Количество товара на складе
 	
-	private Double discountPrice;
+	// 4️. ИЗОБРАЖЕНИЕ И ВИЗУАЛЬНОЕ ПРЕДСТАВЛЕНИЕ
 	
-	private Boolean isActive;
+	private String image; // Имя файла изображения или URL
 	
+	// 5️. СКИДКИ И АКЦИИ
+	
+	private int discount; // Размер скидки в процентах
+	
+	private Double discountPrice; // Цена со скидкой (вычисляется)
+	// Формула: discountPrice = price * (100 - discount) / 100
+    // Пример: price=1000, discount=15 → discountPrice=850
+	
+	private Boolean isActive; // Активен ли товар для продажи
+	// true = товар отображается в каталоге
+    // false = товар скрыт (но остается в БД)
  
 }

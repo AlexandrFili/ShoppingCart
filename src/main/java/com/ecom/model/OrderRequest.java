@@ -3,26 +3,31 @@ package com.ecom.model;
 import lombok.Data;
 import lombok.ToString;
 
-@ToString
-@Data
-public class OrderRequest {
+//Данный класс представляет собой модель Data Transfer Object (DTO) для оформления заказа 
 
-	private String firstName;
+//Аннотации Lombok:
+@ToString   // Генерирует toString() метод для логгирования/отладки
+@Data       // Генерирует геттеры, сеттеры, equals, hashCode
+public class OrderRequest { // Это Data Transfer Object (DTO) - объект для передачи данных между слоями, также это НЕ сущность JPA! НЕ сохраняется в БД напрямую.
 
-	private String lastName;
+	// 1️. ДАННЫЕ АДРЕСА ДОСТАВКИ (такие же как в OrderAddress)
+	private String firstName;  // Имя получателя
 
-	private String email;
+	private String lastName;   // Фамилия получателя
 
-	private String mobileNo;
+	private String email;      // Email 
 
-	private String address;
+	private String mobileNo;   // Мобильный телефон
 
-	private String city;
+	private String address;    // Улица, дом, квартира
 
-	private String region;
+	private String city;       // Населенный пункт
 
-	private String pincode;
+	private String region;     // Регион/область/край
+
+	private String pincode;    // Почтовый индекс
 	
-	private String paymentType;
+	// 2️. ⭐ НОВОЕ ПОЛЕ: СПОСОБ ОПЛАТЫ
+	private String paymentType; 
 
 }

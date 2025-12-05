@@ -6,28 +6,36 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-@Data
-@Entity
+//Данный класс представляет собой модель адреса доставки заказа
+
+//Аннотации Lombok:
+@Data   // Комплексная аннотация: генерирует геттеры, сеттеры, toString, equals, hashCode
+@Entity // Помечает класс как JPA сущность (таблица в БД)
 public class OrderAddress {
 
+	// 1️. ПЕРВИЧНЫЙ КЛЮЧ
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Стратегия генерации ID: IDENTITY = автоинкремент в БД
 	private Integer id;
 
-	private String firstName;
+	// 2️. ИНФОРМАЦИЯ О ПОЛУЧАТЕЛЕ
+	
+	private String firstName; // Имя получателя
 
-	private String lastName;
+	private String lastName;  // Фамилия получателя
 
-	private String email;
+	private String email;     // Email получателя 
 
-	private String mobileNo;
+	private String mobileNo;  // Мобильный телефон 
 
-	private String address;
+	// 3️. АДРЕС ДОСТАВКИ
+	
+	private String address;   // Улица, дом, квартира
 
-	private String city;
+	private String city;      // Населенный пункт
 
-	private String region;
+	private String region;    // Область/край/регион
 
-	private String pincode;
+	private String pincode;   // Почтовый индекс 
 
 }

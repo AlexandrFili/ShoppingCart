@@ -15,38 +15,54 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+//Данный класс представляет собой самую важную бизнес сущность - модель заказа товара
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity
+//Lombok аннотации:
+@AllArgsConstructor  // Генерирует конструктор со всеми полями
+@NoArgsConstructor   // Генерирует конструктор без аргументов (обязателен для JPA)
+@Getter              // Генерирует геттеры для всех полей
+@Setter              // Генерирует сеттеры для всех полей
+@Entity              // Помечает класс как JPA сущность (таблица в БД)
 public class ProductOrder {
 
+	// 1️. ПЕРВИЧНЫЙ КЛЮЧ
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Стратегия генерации ID: IDENTITY = автоинкремент в БД
 	private Integer id;
 
-	private String orderId;
+	// 2️. БИЗНЕС-ИДЕНТИФИКАТОР ЗАКАЗА
+	private String orderId; // Публичный номер заказа (показывается пользователю)
 
-	private LocalDate orderDate;
+	// 3️. ДАТА ЗАКАЗА
+	private LocalDate orderDate; // Дата создания заказа
 
-	@ManyToOne
-	private Product product;
+	// 4️. ИНФОРМАЦИЯ О ТОВАРЕ
+	@ManyToOne // Многие заказы → одному товару
+	private Product product; // Какой товар заказан
+	// Важно: сохраняется ССЫЛКА на товар, чтобы при изменении товара
+    // в будущем, данные заказа остались исторически корректными
 
-	private Double price;
+	private Double price; // Цена товара на момент заказа
 
-	private Integer quantity;
+	private Integer quantity; // Количество товара
 
-	@ManyToOne
-	private UserDtls user;
+	// 5️. ИНФОРМАЦИЯ О ПОКУПАТЕЛЕ
+	@ManyToOne // Многие заказы → одному пользователю
+	private UserDtls user; // Кто сделал заказ
 
-	private String status;
+	// 6️. СТАТУС ЗАКАЗА
+	private String status;  // Текущий статус заказа (можно увидеть в OrderStatus.java в com.ecom.util)
 
+	// 7️. СПОСОБ ОПЛАТЫ
 	private String paymentType;
 	
-	@OneToOne(cascade = CascadeType.ALL) 
-	private OrderAddress orderAddress;
+	// 8️. ⭐ АДРЕС ДОСТАВКИ (важная связь!)
+	@OneToOne(cascade = CascadeType.ALL) // Один заказ → один адрес
+	private OrderAddress orderAddress; // Адрес доставки
 
+	// cascade = CascadeType.ALL означает:
+    // При сохранении заказа автоматически сохраняется адрес
+    // При удалении заказа удаляется адрес
+    // При обновлении заказа обновляется адрес
 
 }

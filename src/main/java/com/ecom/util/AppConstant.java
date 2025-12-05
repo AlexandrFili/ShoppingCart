@@ -5,6 +5,6 @@ public class AppConstant {
 	public static final long UNLOCK_DURATION_TIME = 3000; 
 			//1 * 60 * 60 * 1000; ПОСТАВИТЬ ЭТИ ДАННЫЕ, ЕСЛИ НАДО ВВЕСТИ В ЭКСПЛУАТАЦИЮ, ВЫШЕ ДАННЫЕ ДЛЯ ТЕСТА ЛИШЬ!!!!!
 	
-	public static final int ATTEMPT_TIME = 3;
+	public static final int ATTEMPT_TIME = 3; // Количество неудачных попыток входа до блокирования аккаунта
 
 }
